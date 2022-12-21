@@ -1,0 +1,89 @@
+#include <iostream>
+#include <random>
+#include <conio.h>
+
+//These classes are broken down into random devices representing a certain number of sided dice
+//mt19937_64 was used to maintain 64 bit consistency with other functions, its used to seed the random device
+//uniform_int_distribution is a 64 bit rng process using the discrete probability function to select a number from the seeded device.
+//when the class function of roll() is executed it will generate a new number each time.
+class D20 {
+public:
+	D20() = default;
+	int roll() {
+		std::mt19937_64 mtd20(std::random_device{}());
+		std::uniform_int_distribution<> dist(1, 20);
+		return dist(mtd20);
+	}
+};
+class D10 {
+public:
+	D10() = default;
+	int roll() {
+		std::mt19937_64 mtd10(std::random_device{}());
+		std::uniform_int_distribution<> dist(1, 10);
+		return dist(mtd10);
+	}
+};
+class D6 {
+public:
+	D6() = default;
+	int roll() {
+		std::mt19937_64 mtd6(std::random_device{}());
+		std::uniform_int_distribution<> dist(1, 6);
+		return dist(mtd6);
+	}
+};
+class D4 {
+public:
+	D4() = default;
+	int roll() {
+		std::mt19937_64 mtd4(std::random_device{}());
+		std::uniform_int_distribution<> dist(1, 4);
+		return dist(mtd4);
+	}
+};
+
+
+int main()
+{
+	std::cout << "Press 1 to roll a twenty-sided dice! \nPress 2 to roll a ten-sided dice!\nPress 3 to roll a six-sided dice!\nPress 4 to roll a four-sided dice!" << std::endl;
+	//Opening prompt with instructions.
+	D20 d20;
+	D10 d10;
+	D6 d6;
+	D4 d4; 
+	//Classes assigned to variables to be called as instances of the class.
+	int input_char;
+	//interger variable representing the character code of the key pressed by the user
+	while (true)
+	{
+		input_char = _getch(); //the character code of the key pressed by the user by _getch().
+		if (input_char == '1')
+		{
+			int result = d20.roll();
+			std::cout << "You rolled a " << static_cast<int>(result) << " on a D20!" << std::endl;
+			
+		} //If the 1 key is pressed then a new instance of D20 is initiated with the function of roll being stored to 'result' as an interger varible. Result is printed with a static_cast to reduce warnings for compiler.
+		if (input_char == '2')
+		{
+			int result = d10.roll();
+			std::cout << "You rolled a " << static_cast<int>(result) << " on a D10!" << std::endl;
+
+		}
+		if (input_char == '3')
+		{
+			int result = d6.roll();
+			std::cout << "You rolled a " << static_cast<int>(result) << " on a D6!" << std::endl;
+
+		}
+		if (input_char == '4')
+		{
+			int result = d4.roll();
+			std::cout << "You rolled a " << static_cast<int>(result) << " on a D4!" << std::endl;
+
+		}
+	}
+	
+	
+	return 0;
+}
